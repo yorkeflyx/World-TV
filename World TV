@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090d18">
+<title>MundoTV | Televisión gratis</title>
+<style>
+:root {
+  --bg:#090d18;
+  --panel:#131b2b;
+  --cyan:#32e6f2;
+  --purple:#9370ff;
+  --text:#f4f7ff;
+  --muted:#a7b2c8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+header{
+  position:sticky;top:0;z-index:5;
+  background:#090d18ed;backdrop-filter:blur(12px);
+  border-bottom:1px solid #27334a;padding:14px 16px;
+}
+.nav{
+  max-width:1050px;margin:auto;display:flex;
+  align-items:center;justify-content:space-between;gap:10px;
+}
+.logo{font-size:24px;font-weight:900;color:var(--cyan)}
+.logo span{color:white}
+.small{font-size:12px;color:var(--muted)}
+main{max-width:1050px;margin:auto;padding:18px 14px}
+.hero{
+  padding:27px 20px;border-radius:20px;
+  background:linear-gradient(135deg,#17274a,#31205a 65%,#103d4b);
+  border:1px solid #39456b;
+}
+.tag{
+  display:inline-block;background:#123f49;color:#79f7ff;
+  padding:7px 10px;border-radius:30px;font-size:11px;
+  font-weight:bold;letter-spacing:1px;
+}
+h1{font-size:32px;margin:15px 0 10px}
+.hero p{color:#d1d9ec;line-height:1.6;font-size:14px}
+.search{display:flex;gap:8px;margin-top:20px}
+input{
+  min-width:0;flex:1;padding:13px;border-radius:10px;
+  border:1px solid #3a4761;background:#0c1322;color:white;
+  font-size:15px;outline:none;
+}
+input:focus{border-color:var(--cyan)}
+h2{font-size:20px;margin:28px 0 14px}
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+.filter{
+  flex-shrink:0;background:#151d2e;border:1px solid #303c53;
+  color:white;border-radius:25px;padding:10px 14px;
+}
+.filter.active{background:var(--cyan);color:#07121b;border-color:var(--cyan)}
+.grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;
+}
+.card{
+  background:var(--panel);border:1px solid #26334a;
+  border-radius:15px;overflow:hidden;min-width:0;
+}
+.art{
+  min-height:100px;display:flex;align-items:center;
+  justify-content:center;font-size:38px;
+  background:linear-gradient(140deg,#1c3150,#1b1740);
+}
+.cardbody{padding:12px}
+.card h3{font-size:15px;margin:0 0 7px}
+.card p{font-size:12px;line-height:1.5;color:var(--muted);min-height:36px}
+.badge{
+  font-size:10px;color:#79f7ce;font-weight:bold;
+  display:block;margin-bottom:9px;
+}
+button,.watch{
+  cursor:pointer;border:0;border-radius:9px;padding:11px;
+  font-weight:bold;font-size:13px;
+}
+.watch{
+  display:block;text-align:center;text-decoration:none;
+  background:var(--cyan);color:#07121b;width:100%;
+}
+.empty{
+  display:none;text-align:center;padding:25px;
+  color:var(--muted);background:var(--panel);border-radius:12px;
+}
+.note{
+  background:#111a2a;border:1px solid #293750;
+  border-radius:12px;padding:14px;color:var(--muted);
+  font-size:12px;line-height:1.6;margin-top:25px;
+}
+footer{text-align:center;color:#7f8ba4;padding:25px;font-size:12px}
+@media(min-width:650px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  h1{font-size:42px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">📺 Mundo<span>TV</span></div>
+    <div class="small">TU TELEVISIÓN ONLINE</div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="tag">● GUÍA DE CANALES</span>
+    <h1>Todo lo que quieres ver.</h1>
+    <p>Encuentra televisión colombiana e internacional
+    desde un solo lugar. Gratis y desde tu celular.</p>
+    <div class="search">
+      <input id="search" type="search"
+        placeholder="Buscar canal..." aria-label="Buscar canal">
+    </div>
+  </section>
+
+  <h2>Explora los canales</h2>
+  <div class="filters">
+    <button class="filter active" data-cat="todos">🌐 Todos</button>
+    <button class="filter" data-cat="colombia">🇨🇴 Colombia</button>
+    <button class="filter" data-cat="internacional">🌎 Internacional</button>
+  </div>
+
+  <div class="grid" id="channels"></div>
+  <div class="empty" id="empty">
+    No encontramos canales con ese nombre. Prueba otra búsqueda.
+  </div>
+
+  <section>
+    <h2>✨ ¿Cómo funciona?</h2>
+    <div class="note">
+      <b style="color:white">MundoTV es una guía independiente.</b>
+      <br><br>
+      Al pulsar VER CANAL, visitarás la página oficial del
+      proveedor. La disponibilidad de la señal en vivo depende
+      de cada canal, su país y sus condiciones de acceso.
+      <br><br>
+      No alojamos ni retransmitimos las señales de terceros.
+      Solo incluiremos transmisiones integradas cuando el
+      proveedor lo permita.
+    </div>
+  </section>
+</main>
+
+<footer>
+  MundoTV · Proyecto independiente · Versión 1.0
+</footer>
+
+<script>
+const channels = [
+  {
+    name:"RTVCPlay",
+    country:"Colombia",
+    category:"colombia",
+    emoji:"📡",
+    description:"Contenido público colombiano y programación.",
+    url:"https://www.rtvcplay.co/"
+  },
+  {
+    name:"Señal Colombia",
+    country:"Colombia",
+    category:"colombia",
+    emoji:"🇨🇴",
+    description:"Cultura, documentales y programas nacionales.",
+    url:"https://www.senalcolombia.tv/"
+  },
+  {
+    name:"Canal Institucional",
+    country:"Colombia",
+    category:"colombia",
+    emoji:"🏛️",
+    description:"Información institucional y servicio público.",
+    url:"https://www.canalinstitucional.tv/"
+  },
+  {
+    name:"Canal Capital",
+    country:"Bogotá, Colombia",
+    category:"colombia",
+    emoji:"🏙️",
+    description:"Noticias, cultura y actualidad de Bogotá.",
+    url:"https://www.canalcapital.gov.co/"
+  },
+  {
+    name:"DW Español",
+    country:"Internacional",
+    category:"internacional",
+    emoji:"🌍",
+    description:"Noticias y actualidad internacional.",
+    url:"https://www.dw.com/es/"
+  },
+  {
+    name:"France 24",
+    country:"Internacional",
+    category:"internacional",
+    emoji:"🌐",
+    description:"Información internacional en español.",
+    url:"https://www.france24.com/es/"
+  },
+  {
+    name:"Euronews",
+    country:"Internacional",
+    category:"internacional",
+    emoji:"📰",
+    description:"Noticias de Europa y del mundo.",
+    url:"https://es.euronews.com/"
+  }
+];
+
+let activeCategory = "todos";
+const container = document.getElementById("channels");
+const search = document.getElementById("search");
+const empty = document.getElementById("empty");
+
+function render(){
+  const term = search.value.trim().toLowerCase();
+  const filtered = channels.filter(channel => {
+    const matchesCategory =
+      activeCategory === "todos" ||
+      channel.category === activeCategory;
+    const matchesSearch =
+      (channel.name + " " + channel.country + " " +
+       channel.description).toLowerCase().includes(term);
+    return matchesCategory && matchesSearch;
+  });
+
+  container.innerHTML = filtered.map(channel => `
+    <article class="card">
+      <div class="art">${channel.emoji}</div>
+      <div class="cardbody">
+        <span class="badge">● PÁGINA OFICIAL</span>
+        <h3>${channel.name}</h3>
+        <span class="small">${channel.country}</span>
+        <p>${channel.description}</p>
+        <a class="watch"
+           href="${channel.url}"
+           target="_blank"
+           rel="noopener noreferrer">
+           VER CANAL ↗
+        </a>
+      </div>
+    </article>
+  `).join("");
+
+  empty.style.display = filtered.length ? "none" : "block";
+}
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(b =>
+      b.classList.remove("active")
+    );
+    button.classList.add("active");
+    activeCategory = button.dataset.cat;
+    render();
+  });
+});
+
+search.addEventListener("input",render);
+render();
+</script>
+</body>
+</html>
